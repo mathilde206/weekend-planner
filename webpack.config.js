@@ -6,6 +6,7 @@ module.exports = {
         path: path.resolve(__dirname, 'frontend/static/js'),
         filename: 'weekend_planner.bundle.js'
     },
+    watch: true,
     module: {
         rules: [
             {
@@ -25,6 +26,17 @@ module.exports = {
                     {
                         loader: "sass-loader"
                     }]
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: "css-loader"
+                    },
+                ]
             }
         ]
     },

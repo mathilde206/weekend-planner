@@ -4,4 +4,4 @@ from django.shortcuts import render
 # Create your views here.
 class FrontEndRenderView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'frontend.html', {})
+        return render(request, 'frontend.html')

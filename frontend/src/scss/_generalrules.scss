@@ -1,0 +1,28 @@
+html {
+  height:100%;
+}
+
+body {
+  min-height: 100%;
+  font-family: $font-default;
+
+  #weekend-planner-app .container-fluid {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  .btn-default {
+    background-color: $theme-yellow;
+    color: $gray;
+    font-weight: $font-bold;
+
+    &:hover {
+      background-color: $theme-yellow-lighter;
+    }
+  }
+}

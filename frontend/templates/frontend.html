@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,13 +6,19 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Weekend Planner</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <!-- Custom fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Satisfy|Ubuntu:400,700" rel="stylesheet">
+
 </head>
 <body>
 
 <div id="weekend-planner-app"> {# React goes here #} </div>
 
-{% load static %}
-<script src="{% static "/js/weekend_planner.bundle.js" %}"></script>
+<script type="text/javascript" src="{% static "/js/weekend_planner.bundle.js" %}"></script>
 </body>
 </html>

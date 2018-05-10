@@ -1,0 +1,18 @@
+@import "../../scss/_variables.scss";
+
+.navbar-fixed .nav-wrapper {
+  padding: 0 10px;
+  background-color: $theme-darker-blue;
+
+  a {
+    color: $theme-light-blue;
+    &:hover {
+      background-color: $theme-darker-blue;
+    }
+  }
+
+  .brand-logo {
+    font-family: $font-cursive;
+  }
+
+}

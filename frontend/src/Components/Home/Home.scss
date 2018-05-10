@@ -1,0 +1,23 @@
+@import "../../scss/_variables.scss";
+
+.home {
+  background-image: url("/static/images/home-image.jpg");
+  background-position: center;
+  background-size: cover;
+  overflow:hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1{
+    color: $theme-darker-blue;
+    font-family: $font-cursive;
+    text-shadow: 2px 2px $transparent;
+    margin-top: 15%;
+  }
+
+  button {
+    margin-top:5%;
+  }
+}
