@@ -12,8 +12,6 @@ class RecommendationCreateSerializer(ModelSerializer):
             'content_day1',
             'content_day2',
             'content_day3',
-            'author',
-            'created_date',
         ]
 
 
