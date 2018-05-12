@@ -21,7 +21,7 @@ body {
     color: $gray;
     font-weight: $font-bold;
 
-    &:hover {
+    &:hover, &:focus {
       background-color: $theme-yellow-lighter;
     }
   }
