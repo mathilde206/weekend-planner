@@ -18,7 +18,7 @@ class Recommendation(models.Model):
 
     title = models.CharField(max_length=120)
     slug = models.SlugField(unique=True)
-    # city = models.ForeignKey(City, default=Europe)
+    # city = models.ForeignKey(City, models.CASCADE)
     image = models.ImageField(
         upload_to=upload_location,
         blank=True,

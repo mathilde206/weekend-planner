@@ -25,11 +25,11 @@ from frontend.views import FrontEndRenderView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'api/cities/', include(cities_urls)),
-    url(r'api/recommendations/', include(recommendations_urls), name='recommendations-api'),
+    url(r'api/recommendations/', include(recommendations_urls, namespace='recommendations-api')),
 ]
 
 # A catch all url pattern that will render the React app
-#TODO: have the frontend handle 404.
+# TODO: have the frontend handle 404.
 urlpatterns += [
     url(r'(?P<path>.*)', FrontEndRenderView.as_view(), name='home')
 ]
