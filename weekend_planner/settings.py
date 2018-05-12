@@ -34,8 +34,10 @@ if DEVELOPMENT:
 else:
     DEBUG = False
 
+
 ALLOWED_HOSTS = [
-    'https://weekend-in-europe.herokuapp.com/'
+    'localhost',
+    'https://weekend-in-europe.herokuapp.com/',
     ]
 
 
@@ -80,11 +82,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.'
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'weekend_planner.wsgi.application'
 
@@ -103,7 +105,6 @@ else:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

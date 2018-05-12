@@ -19,11 +19,13 @@ from django.conf import settings
 
 from django.contrib import admin
 from cities import urls as cities_urls
+from recommendations import urls as recommendations_urls
 from frontend.views import FrontEndRenderView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'api/cities/', include(cities_urls)),
+    url(r'api/recommendations/', include(recommendations_urls), name='recommendations-api'),
 ]
 
 # A catch all url pattern that will render the React app
