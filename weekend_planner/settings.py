@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,9 +29,14 @@ else:
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if DEVELOPMENT:
+    DEBUG = True
+else:
+    DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'https://weekend-in-europe.herokuapp.com/'
+    ]
 
 
 # Application definition
@@ -46,6 +52,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'frontend',
     'cities',
+    'recommendations',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +80,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.'
             ],
         },
     },
@@ -90,6 +98,10 @@ if DEVELOPMENT :
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 
 
@@ -134,3 +146,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, '/frontend/static')
 STATICFILES_DIR = [
     os.path.join(BASE_DIR, '/frontend/static')
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
