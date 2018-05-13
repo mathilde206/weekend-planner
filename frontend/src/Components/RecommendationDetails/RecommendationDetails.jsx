@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import axios from 'axios';
 
 import DetailsInfoWell from '../DetailsInfoWell/DetailsInfoWell.jsx';
+import CommentsSection from '../CommentsSection/CommentsSection.jsx';
 import ContentSection from '../ContentSection/ContentSection.jsx';
 
 class RecommendationDetails extends React.Component {
@@ -11,6 +12,7 @@ class RecommendationDetails extends React.Component {
         author: '',
         budget: '',
         city: '',
+        comments:[],
         content: [],
         errors: [],
         loading: true,
@@ -62,6 +64,7 @@ class RecommendationDetails extends React.Component {
             author,
             budget,
             city,
+            comments,
             content,
             errors,
             loading,
@@ -70,7 +73,6 @@ class RecommendationDetails extends React.Component {
             recommendationViews,
             title,
         } = this.state;
-        console.log(number_of_days)
 
         if(loading) {
             return <h1>Loading</h1>
@@ -97,6 +99,10 @@ class RecommendationDetails extends React.Component {
                     city={city.name}
                     content={content}
                     number_of_days={number_of_days}
+                />
+
+                <CommentsSection
+                    comments={comments}
                 />
             </div>
         )
