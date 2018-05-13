@@ -1,0 +1,17 @@
+@import "../../scss/_variables.scss";
+
+.details-info-well {
+  text-align: center;
+
+  .card-content{
+    padding: 10px
+  }
+
+  h5 {
+    font-family: $font-default;
+    font-weight: $font-bold;
+    color: $theme-blue;
+    text-transform: capitalize;
+  }
+
+}

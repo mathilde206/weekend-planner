@@ -1,28 +1,33 @@
 html {
-  height:100%;
-}
+  height: 100%;
 
-body {
-  min-height: 100%;
-  font-family: $font-default;
+  h1, h2, h3, h4 {
+    font-family: $font-cursive;
+    color: $theme-darker-blue;
+  }
 
-  #weekend-planner-app .container-fluid {
+  body {
     min-height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+    font-family: $font-default;
 
-  main {
-    flex: 1 0 auto;
-  }
+    #weekend-planner-app .container-fluid {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
 
-  .btn-default {
-    background-color: $theme-yellow;
-    color: $gray;
-    font-weight: $font-bold;
+    main {
+      flex: 1 0 auto;
+    }
 
-    &:hover, &:focus {
-      background-color: $theme-yellow-lighter;
+    .btn-default {
+      background-color: $theme-yellow;
+      color: $gray;
+      font-weight: $font-bold;
+
+      &:hover, &:focus {
+        background-color: $theme-yellow-lighter;
+      }
     }
   }
 }

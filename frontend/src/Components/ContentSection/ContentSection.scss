@@ -1,0 +1,27 @@
+@import "../../scss/_variables.scss";
+
+.content-section {
+  margin-bottom: 70px;
+
+  h4 {
+    color: $theme-highlight-pink;
+  }
+
+  .row {
+    .col p{
+      padding: 10px;
+    }
+
+    .col h5 {
+      color: $theme-blue;
+      text-align: center;
+    }
+
+    hr{
+      border: 0;
+      height: 1px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+  }
+
+}

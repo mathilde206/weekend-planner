@@ -51,9 +51,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'webpack_loader',
-    'frontend',
+    # 'webpack_loader',
     'cities',
+    'comments',
+    'frontend',
     'recommendations',
 ]
 

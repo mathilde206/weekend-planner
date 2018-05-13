@@ -4,7 +4,7 @@
   "description": "A web application to plan weekend trips in Europe",
   "main": "index.js",
   "scripts": {
-    "create": "webpack",
+    "watch": "webpack",
     "build": "webpack --mode production"
   },
   "babel": {
@@ -19,6 +19,7 @@
   "author": "Mathilde Barbier",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-parallax": "^1.7.0",
