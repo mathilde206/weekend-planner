@@ -5,4 +5,4 @@ from rest_framework.pagination import (
 
 
 class RecommendationPageNumberPagination(PageNumberPagination):
-    page_size = 6
+    page_size = 5

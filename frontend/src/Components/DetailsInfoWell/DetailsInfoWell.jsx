@@ -17,11 +17,11 @@ const DetailsInfoWell = ({
             <div className="col s12">
                 <div className="card">
                     <div className="card-content">
-                        <h5> {city} in {number_of_days} day{number_of_days>1? 's':''}</h5>
+                        <h5> {city.name} in {number_of_days} day{number_of_days>1? 's':''}</h5>
                         <p>Budget: {budget}</p>
-                        <p>By {author}</p>
-                        <p>{likes} Likes </p>
-                        <p>{views} Views</p>
+                        <p>Country: {city.country}</p>
+                        <p>Language: {city.language}</p>
+                        <small>By {author} | {likes} Likes | {views} Views</small>
                     </div>
                 </div>
             </div>

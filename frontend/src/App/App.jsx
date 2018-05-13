@@ -5,10 +5,12 @@ import {
     Route,
     Switch} from 'react-router-dom';
 
-import TopNavigation from "../Components/TopNavigation/TopNavigation.jsx";
+import CreateRecommendation from '../Components/CreateRecommendation/CreateRecommendation.jsx';
 import Footer from '../Components/Footer/Footer.jsx';
 import Home from '../Components/Home/Home.jsx';
-import RecommendationDetails from '../Components/RecommendationDetails/RecommendationDetails.jsx'
+import RecommendationDetails from '../Components/RecommendationDetails/RecommendationDetails.jsx';
+import TopNavigation from "../Components/TopNavigation/TopNavigation.jsx";
+import UpdateRecommendation from '../Components/UpdateRecommendation/UpdateRecommendation.jsx';
 
 class App extends React.Component {
     render() {
@@ -16,14 +18,15 @@ class App extends React.Component {
             <Router>
                 <div className='container-fluid'>
                     <header>
-                        <TopNavigation/>
+                        <TopNavigation />
                     </header>
 
                     <main>
                         <Switch>
                             <Route exact path='/' component={Home}/>
-                            <Route exact path='/details/:slug' component={RecommendationDetails}/>
-                            <Route exact path='/create/' component={CreateUpdateRecommendation}/>
+                            <Route path='/details/:slug' component={RecommendationDetails}/>
+                            <Route path='/create/' component={CreateRecommendation}/>
+                            <Route path='/edit/:slug' component={UpdateRecommendation}/>
                             <Route render={() => <p>Not Found</p>}/>
                         </Switch>
                     </main>

@@ -87,7 +87,7 @@ class RecommendationDetails extends React.Component {
                 <DetailsInfoWell
                     author={author}
                     budget={budget}
-                    city={city.name}
+                    city={city}
                     number_of_days={number_of_days}
                     likes={recommendationLikes}
                     views={recommendationViews}
