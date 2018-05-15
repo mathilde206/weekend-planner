@@ -5,3 +5,5 @@ __pycache__/
 node_modules
 npm-debug.log
 frontend/static/js
+.coverage
+htmlcov

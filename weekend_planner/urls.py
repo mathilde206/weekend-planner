@@ -23,6 +23,8 @@ from recommendations import urls as recommendations_urls
 from comments import urls as comments_urls
 from frontend.views import FrontEndRenderView
 
+from .settings import DEBUG
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'api/cities/', include(cities_urls)),
@@ -35,3 +37,8 @@ urlpatterns = [
 urlpatterns += [
     url(r'(?P<path>.*)', FrontEndRenderView.as_view(), name='home')
 ]
+
+if DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
