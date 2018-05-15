@@ -3,6 +3,15 @@ from rest_framework.serializers import (
     ModelSerializer,
     SerializerMethodField)
 
+from comments.serializers import (
+    CommentDetailSerializer,
+    CommentSerializer,
+)
+
+from comments.models import Comment
+
+
+
 from .models import Recommendation
 
 recommendation_url = HyperlinkedIdentityField(
@@ -39,6 +48,7 @@ class RecommendationCreateUpdateSerializer(ModelSerializer):
 
 class RecommendationDetailSerializer(ModelSerializer):
     city = SerializerMethodField()
+    comments = SerializerMethodField()
     delete_url = recommendation_delete_url
     image = SerializerMethodField()
     url = recommendation_url
@@ -62,6 +72,11 @@ class RecommendationDetailSerializer(ModelSerializer):
             image = None
         return image
 
+    def get_comments(self, obj):
+        comments_qs = Comment.objects.filter_by_instance(obj)
+        comments = CommentSerializer(comments_qs, many=True).data
+        return comments
+
     def get_city(self, obj):
         return {
             'name': obj.city.name,
@@ -76,6 +91,7 @@ class RecommendationDetailSerializer(ModelSerializer):
             'title',
             'budget',
             'city',
+            'comments',
             'content_day1',
             'content_day2',
             'content_day3',

@@ -1,5 +1,3 @@
-from django.db.models import Q
-
 from rest_framework.filters import (
     SearchFilter,
     OrderingFilter,
@@ -52,7 +50,7 @@ class RecommendationDeleteAPIView(DestroyAPIView):
 
 class RecommendationDetailAPIView(RetrieveAPIView):
     lookup_field = 'slug'
-    queryset = Recommendation.objects.active()
+    queryset = Recommendation.objects.all()
     serializer_class = RecommendationDetailSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 

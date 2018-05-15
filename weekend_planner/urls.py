@@ -20,11 +20,13 @@ from django.conf import settings
 from django.contrib import admin
 from cities import urls as cities_urls
 from recommendations import urls as recommendations_urls
+from comments import urls as comments_urls
 from frontend.views import FrontEndRenderView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'api/cities/', include(cities_urls)),
+    url(r'api/comments/', include(comments_urls, namespace='comments-api')),
     url(r'api/recommendations/', include(recommendations_urls, namespace='recommendations-api')),
 ]
 
