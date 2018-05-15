@@ -79,7 +79,8 @@ class Recommendation(models.Model):
 
 def create_slug(instance, new_slug=None):
     """
-    This recursive function will ensure that we create a unique slug (in case several recommendations have the same title
+    This recursive function will ensure that we create a unique slug (in case several recommendations have the same title)
+    by adding the id of the last one created to this instance (which unfortunately doesn't have an idea to append yet).
     """
     slug= slugify(instance.title)
     if new_slug is not None:
