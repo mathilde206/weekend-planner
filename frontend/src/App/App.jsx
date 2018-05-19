@@ -3,9 +3,10 @@ import {
     BrowserRouter as Router,
     Link,
     Route,
-    Switch} from 'react-router-dom';
+    Switch
+} from 'react-router-dom';
 
-import CreateRecommendation from '../Components/CreateRecommendation/CreateRecommendation.jsx';
+import CreateUpdateRecommendation from '../Components/CreateUpdateRecommendation/CreateUpdateRecommendation.jsx';
 import Footer from '../Components/Footer/Footer.jsx';
 import Home from '../Components/Home/Home.jsx';
 import RecommendationDetails from '../Components/RecommendationDetails/RecommendationDetails.jsx';
@@ -18,16 +19,22 @@ class App extends React.Component {
             <Router>
                 <div className='container-fluid'>
                     <header>
-                        <TopNavigation />
+                        <TopNavigation/>
                     </header>
 
                     <main>
                         <Switch>
                             <Route exact path='/' component={Home}/>
                             <Route path='/details/:slug' component={RecommendationDetails}/>
-                            <Route path='/create/' component={CreateRecommendation}/>
+                            <Route path='/create/' render={(props) => (
+                                <CreateUpdateRecommendation
+                                    {...props}
+                                    action={"create"}
+                                    apiURL={"/api/recommendations/create/"}
+                                />)}
+                            />
                             <Route path='/edit/:slug' component={UpdateRecommendation}/>
-                            <Route render={() => <p>Not Found</p>}/>
+                            <Route render={() => <div className="container" style={{minHeight: '70vh'}}><h1>Not Found</h1></div>}/>
                         </Switch>
                     </main>
 

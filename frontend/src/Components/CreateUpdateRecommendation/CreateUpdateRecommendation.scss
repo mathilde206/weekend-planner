@@ -1,0 +1,21 @@
+@import "../../scss/_variables.scss";
+
+.create-recommendation {
+  min-height: 90vh;
+
+  .input-row {
+
+    .form-label {
+      margin-top: 15px;
+
+      label {
+        font-size: 1.3rem;
+      }
+    }
+
+    select, input[checkbox] {
+      display: inherit;
+
+    }
+  }
+}
