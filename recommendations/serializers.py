@@ -35,6 +35,7 @@ class RecommendationCreateUpdateSerializer(ModelSerializer):
         model = Recommendation
         fields = [
             'title',
+            'slug',
             'budget',
             'city',
             'content_day1',
@@ -43,6 +44,9 @@ class RecommendationCreateUpdateSerializer(ModelSerializer):
             'draft',
             'image',
             'number_of_days',
+        ]
+        read_only_fields = [
+            'slug',
         ]
 
 

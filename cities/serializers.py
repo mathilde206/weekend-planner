@@ -1,7 +1,10 @@
-from rest_framework import serializers
+from rest_framework.serializers import (
+    ModelSerializer,
+    ValidationError,)
+
 from .models import City
 
-class CitySerializer(serializers.ModelSerializer):
+class CitySerializer(ModelSerializer):
     class Meta:
         model = City
         fields = [
@@ -20,5 +23,7 @@ class CitySerializer(serializers.ModelSerializer):
         if self.instance:
             qs = qs.exclude(pk=self.instance.pk)
         if qs.exists():
-            raise serializers.ValidationError("The City already exists")
+            raise ValidationError("The City already exists")
         return value
+
+

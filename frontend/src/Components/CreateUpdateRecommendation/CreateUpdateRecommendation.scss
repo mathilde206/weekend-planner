@@ -11,11 +11,20 @@
       label {
         font-size: 1.3rem;
       }
+
+      label.error {
+        color: $theme-highlight-pink;
+      }
+    }
+
+    p.error {
+      color: $theme-highlight-pink;
     }
 
     select, input[checkbox] {
       display: inherit;
 
     }
+
   }
 }
