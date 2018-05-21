@@ -34,12 +34,10 @@ if DEVELOPMENT:
 else:
     DEBUG = False
 
-
 ALLOWED_HOSTS = [
     'localhost',
     'https://weekend-in-europe.herokuapp.com/',
-    ]
-
+]
 
 # Application definition
 
@@ -51,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'cities',
     'comments',
     'frontend',
@@ -62,10 +61,18 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_WHITELIST = (
+    'google.com',
+    'localhost:8000',
+    '127.0.0.1:9000'
+)
 
 ROOT_URLCONF = 'weekend_planner.urls'
 
@@ -87,14 +94,12 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'weekend_planner.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-if DEVELOPMENT :
+if DEVELOPMENT:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -124,7 +129,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -137,7 +141,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/

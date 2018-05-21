@@ -4,7 +4,6 @@ import {Redirect} from 'react-router-dom'
 
 import axios from 'axios';
 
-import Alert from '../Alert/Alert.jsx';
 import FormCityCreate from '../FormCityCreate/FormCityCreate.jsx';
 import FormTextField from '../FormTextField/FormTextField.jsx';
 import FormSelectInput from '../FormSelectInput/FormSelectInput.jsx';
@@ -19,7 +18,7 @@ class CreateUpdateRecommendation extends React.Component {
     state = {
         budget: "Cheap",
         city: "",
-        cityExists: true,
+        cityId: 'no city yet',
         content_day1: "",
         content_day2: "",
         content_day3: "",
@@ -49,7 +48,6 @@ class CreateUpdateRecommendation extends React.Component {
 
 
     doesCityExist = (event) => {
-        //TODO: I'm not convinced about this solution, maybe refactor ?
         event.preventDefault();
         const value = event.target.value;
 
@@ -60,15 +58,21 @@ class CreateUpdateRecommendation extends React.Component {
                 formErrors: errors
             })
         } else {
-            axios.get(`/api/cities/${value}`)
-                .then(({data}) => {
-                        this.setState({
-                            cityExists: true
-                        })
+            axios.get(`/api/cities/?search=${value}`)
+                .then((response) => {
+                        if (response.data.length > 0 && response.data[0].pk) {
+                            this.setState({
+                                cityId: response.data[0].pk,
+                            })
+                        } else {
+                            this.setState({
+                                cityId: "",
+                            })
+                        }
                     }
-                ).catch(() => {
+                ).catch((error) => {
                 this.setState({
-                    cityExists: false,
+                    errors: error,
                 })
             })
         }
@@ -110,48 +114,45 @@ class CreateUpdateRecommendation extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        if (this.state.errors.length === 0) {
-            const form = {
-                budget: this.state.budget,
-                content_day1: this.state.content_day1,
-                content_day2: this.state.content_day2,
-                content_day3: this.state.content_day3,
-                draft: this.state.draft,
-                number_of_days: this.state.number_of_days,
-                title: this.state.title,
-            };
+        const form = {
+            budget: this.state.budget,
+            content_day1: this.state.content_day1,
+            content_day2: this.state.content_day2,
+            content_day3: this.state.content_day3,
+            draft: this.state.draft,
+            number_of_days: this.state.number_of_days,
+            title: this.state.title,
+        };
 
-            if (!this.state.cityExists) {
-                this.addCity()
-                    .then(({data}) => {
-                        form.city = data.city;
-                        axios.post(this.props.apiURL, form)
-                            .then(({data}) => <Redirect to={`"/details/${data.slug}"`}/>)
-                            .catch((error) => {
-                                this.state.errors.push(error);
-                                this.setState({
-                                    errors,
-                                })
+        if (this.state.cityId === "") {
+            this.addCity()
+                .then(({data}) => {
+                    form.pk = data.pk;
+                    axios.post(this.props.apiURL, form)
+                        .then(({data}) => {
+                        this.props.history.push(`details/${data.slug}`)
+                    })
+                        .catch((error) => {
+                            this.setState({
+                                errors: error,
                             })
-                    })
-                    .catch(error => {
-                        this.state.errors.push(error);
-                        this.setState({
-                            errors,
                         })
-                    })
-            }
-
-            form[city] = this.state.city;
-            axios.post(this.props.apiURL, form)
-                .then(({data}) => <Redirect to={`"/details/${data.slug}"`}/>)
+                })
                 .catch((error) => {
-                    this.state.errors.push(error);
                     this.setState({
-                        errors,
+                        errors: error,
                     })
                 })
         }
+
+        form[city] = this.state.cityId;
+        axios.post(this.props.apiURL, form)
+            .then(({data}) => this.props.history.push(`details/${data.slug}`))
+            .catch((error) => {
+                this.setState({
+                    errors: error,
+                })
+            })
     };
 
     handleValidation = (event) => {
@@ -176,7 +177,7 @@ class CreateUpdateRecommendation extends React.Component {
             language: this.state.language,
         };
 
-        axios.post('/api/cities/create', JSON.stringify(form))
+        return axios.post('/api/cities/create/', form)
     };
 
     getUpdateData = (recommendationSlug) => {
@@ -184,8 +185,8 @@ class CreateUpdateRecommendation extends React.Component {
             .then(({data}) => {
                 this.setState({
                     budget: data.budget,
-                    city: data.city,
-                    cityExists: true,
+                    city: data.city.name,
+                    cityId: data.city.id,
                     content_day1: data.content_day1,
                     content_day2: data.content_day2,
                     content_day3: data.content_day3,
@@ -198,10 +199,9 @@ class CreateUpdateRecommendation extends React.Component {
 
     isValidForSubmission = () => {
         const emptyField = !this.state.city || !this.state.title || !this.state.city || !this.state.content_day1;
-        const daysMissing = (this.state.number_of_days === 3 && (!content_day2 || !content_day3)) ||
-            (this.state.number_of_days === 2 && !content_day2);
-        const cityInfoMissing = !this.state.cityExists && (!this.state.country || !this.state.currency || this.state.language)
-
+        const daysMissing = (this.state.number_of_days === 3 && (!this.state.content_day2 || !this.state.content_day3)) ||
+            (this.state.number_of_days === 2 && !this.state.content_day2);
+        const cityInfoMissing = !this.state.cityId && (!this.state.country || !this.state.currency || !this.state.language);
         if (emptyField || daysMissing || cityInfoMissing) {
             return false
         }
@@ -214,7 +214,7 @@ class CreateUpdateRecommendation extends React.Component {
         const {
             budget,
             city,
-            cityExists,
+            cityId,
             content_day1,
             content_day2,
             content_day3,
@@ -233,7 +233,6 @@ class CreateUpdateRecommendation extends React.Component {
             apiURL,
         } = this.props;
 
-        console.log(formErrors.title);
         return (
             <div className="container create-recommendation">
                 <h1>Create A New Recommendation</h1>
@@ -242,7 +241,7 @@ class CreateUpdateRecommendation extends React.Component {
                     className='recommendation-form'
                 >
                     <div className="row input-row">
-                        <div className="col s12 m3">
+                        <div className="col s3 offset-s1">
                             <label>
                                 <input
                                     type="checkbox"
@@ -293,7 +292,7 @@ class CreateUpdateRecommendation extends React.Component {
                     />
 
                     {
-                        !cityExists &&
+                        !cityId &&
                         <FormCityCreate
                             country={country}
                             currency={currency}
@@ -335,7 +334,7 @@ class CreateUpdateRecommendation extends React.Component {
 
 
                     <div className="row">
-                        <div className="col s12">
+                        <div className="col s3 offset-s4">
                             <button
                                 type="submit"
                                 onClick={this.handleSubmit}

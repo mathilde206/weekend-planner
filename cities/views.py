@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from rest_framework.filters import (
+    SearchFilter
+)
+
 from rest_framework.generics import (
-    RetrieveAPIView,
-    CreateAPIView
+    CreateAPIView,
+    ListAPIView,
+    RetrieveAPIView
 )
 
 from rest_framework.permissions import IsAuthenticated
@@ -9,13 +13,27 @@ from rest_framework.permissions import IsAuthenticated
 from .models import City
 from .serializers import CitySerializer
 
+
 # Create your views here.
 class CityRetrieveView(RetrieveAPIView):
-    lookup_field = 'name'
+    lookup_field = 'pk'
     serializer_class = CitySerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['name']
 
     def get_queryset(self):
         return City.objects.all()
+
+
+class CityListView(ListAPIView):
+    lookup_field = 'name'
+    serializer_class = CitySerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['name']
+
+    def get_queryset(self):
+        return City.objects.all()
+
 
 class CityCreateView(CreateAPIView):
     queryset = City.objects.all()

@@ -27,7 +27,7 @@ const FormCityCreate = ({ country, currency, handleInputFieldChange, handleValid
             label="Language"
             validationError={validationError.language}
             handleOnBlur={handleValidation}
-            value={currency}
+            value={language}
         />
     </div>
 );

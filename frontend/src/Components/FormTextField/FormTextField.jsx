@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const TextFormField = ({id, handleInputFieldChange, label, handleOnBlur, validationError, value}) => (
     <div className="row input-row">
-        <div className="col s12 m4 form-label">
+        <div className="col s12 m4  offset-m1 form-label">
             <label className={validationError? "error" : ""} htmlFor={id}>{label} *</label>
         </div>
 
