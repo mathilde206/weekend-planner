@@ -116,6 +116,7 @@ class CreateUpdateRecommendation extends React.Component {
 
         const form = {
             budget: this.state.budget,
+            city: this.state.cityId,
             content_day1: this.state.content_day1,
             content_day2: this.state.content_day2,
             content_day3: this.state.content_day3,
@@ -127,11 +128,11 @@ class CreateUpdateRecommendation extends React.Component {
         if (this.state.cityId === "") {
             this.addCity()
                 .then(({data}) => {
-                    form.pk = data.pk;
+                    form.city = data.pk;
                     axios.post(this.props.apiURL, form)
                         .then(({data}) => {
-                        this.props.history.push(`details/${data.slug}`)
-                    })
+                            this.props.history.push(`details/${data.slug}`)
+                        })
                         .catch((error) => {
                             this.setState({
                                 errors: error,
@@ -143,16 +144,15 @@ class CreateUpdateRecommendation extends React.Component {
                         errors: error,
                     })
                 })
-        }
-
-        form[city] = this.state.cityId;
-        axios.post(this.props.apiURL, form)
-            .then(({data}) => this.props.history.push(`details/${data.slug}`))
-            .catch((error) => {
-                this.setState({
-                    errors: error,
+        } else {
+            axios.post(this.props.apiURL, form)
+                .then(({data}) => this.props.history.push(`details/${data.slug}`))
+                .catch((error) => {
+                    this.setState({
+                        errors: error,
+                    })
                 })
-            })
+        }
     };
 
     handleValidation = (event) => {

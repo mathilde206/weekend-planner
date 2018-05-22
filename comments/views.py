@@ -14,7 +14,6 @@ from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
     IsAdminUser,
-    IsAuthenticatedOrReadOnly,
 )
 
 from recommendations.pagination import RecommendationPageNumberPagination
@@ -33,13 +32,13 @@ class CommentDetailAPIView(RetrieveAPIView):
     lookup_field = "id"
     queryset = Comment.objects.all()
     serializer_class = CommentDetailSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [AllowAny]
 
 
 class CommentListAPIView(ListAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = ['AllowAny']
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['content', 'user_firstname']
 

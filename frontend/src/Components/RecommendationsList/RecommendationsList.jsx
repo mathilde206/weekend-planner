@@ -1,17 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
 import axios from 'axios';
+import GoogleMap from 'google-map-react';
 
 import Pagination from '../Pagination/Pagination.jsx';
 
-class HomeExplore extends React.Component {
+class RecommendationsList extends React.Component {
     state = {
         data: [],
         loading: true,
         page: 1,
-        totalPages:0,
+        totalPages: 0,
     };
 
     componentWillMount() {
@@ -64,11 +64,15 @@ class HomeExplore extends React.Component {
 
         if (data.length > 0) {
             return (
-                <div>
-                    <h4>Here are the most popular destinations</h4>
+                <div class='container'>
+                    <h2>Here are the most popular destinations</h2>
                     <div className='row'>
-                        <div className='col s12 m7'>
-                            {/*PLACEHOLDER FOR THE GMAP*/}
+                        <div className='col s12 m7' style={{ height: '60vh'}}>
+                            <GoogleMap
+                                apiKey='AIzaSyArscguieiNDk661CMwggzk1kG9oSG7Zv8'
+
+                            />
+                            <GoogleMap/>
 
                         </div>
                         <div className='col s12 m5'>
@@ -91,13 +95,12 @@ class HomeExplore extends React.Component {
                                     </li>
                                 ))}
                             </ul>
-
-                            <Pagination
-                                activePage={page}
-                                handlePageChange={this.handlePageChange}
-                                totalPages={totalPages}
-                            />
                         </div>
+                        <Pagination
+                            activePage={page}
+                            handlePageChange={this.handlePageChange}
+                            totalPages={totalPages}
+                        />
                     </div>
                 </div>
             )
@@ -109,7 +112,7 @@ class HomeExplore extends React.Component {
     }
 }
 
-export default HomeExplore;
+export default RecommendationsList;
 
 //TODO: HomeExplore
 //-add the google map

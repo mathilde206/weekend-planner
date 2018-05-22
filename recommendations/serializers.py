@@ -7,10 +7,8 @@ from comments.serializers import (
     CommentDetailSerializer,
     CommentSerializer,
 )
-
+from accounts.serializers import UserDetailSerializer
 from comments.models import Comment
-
-
 
 from .models import Recommendation
 
@@ -57,13 +55,7 @@ class RecommendationDetailSerializer(ModelSerializer):
     image = SerializerMethodField()
     url = recommendation_url
     update_url = recommendation_update_url
-    user = SerializerMethodField()
-
-    def get_user(self, obj):
-        """
-        We get the user's username instead of its foreign key/id
-        """
-        return str(obj.user.username)
+    user = UserDetailSerializer(read_only=True)
 
     def get_image(self, obj):
         """
@@ -113,10 +105,7 @@ class RecommendationDetailSerializer(ModelSerializer):
 
 class RecommendationsListSerializer(ModelSerializer):
     url = recommendation_url
-    user = SerializerMethodField()
-
-    def get_user(self, obj):
-        return str(obj.user.username)
+    user = UserDetailSerializer(read_only=True)
 
     class Meta:
         model = Recommendation

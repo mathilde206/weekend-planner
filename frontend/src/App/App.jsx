@@ -12,6 +12,7 @@ import Home from '../Components/Home/Home.jsx';
 import RecommendationDetails from '../Components/RecommendationDetails/RecommendationDetails.jsx';
 import TopNavigation from "../Components/TopNavigation/TopNavigation.jsx";
 import UpdateRecommendation from '../Components/UpdateRecommendation/UpdateRecommendation.jsx';
+import RecommendationsList from "../Components/RecommendationsList/RecommendationsList.jsx";
 
 class App extends React.Component {
     render() {
@@ -25,6 +26,7 @@ class App extends React.Component {
                     <main>
                         <Switch>
                             <Route exact path='/' component={Home}/>
+                            <Route path='/explore' component={RecommendationsList}/>
                             <Route path='/details/:slug' component={RecommendationDetails}/>
                             <Route path='/create/' render={(props) => (
                                 <CreateUpdateRecommendation

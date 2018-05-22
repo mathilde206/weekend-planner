@@ -1,22 +1,15 @@
 import React from "react";
-
-import About from '../About/About.jsx'
-import HomeExplore from '../HomeExplore/HomeExplore.jsx'
-
+import { Link } from 'react-router-dom';
 import './Home.scss'
 
 const Home = ({match}) => (
     <div>
         <div className="home">
             <h1>Where do you go next weekend ?</h1>
-            <a href="#explore">
+            <Link to='/explore'>
                 <button className="btn-default waves-effect waves-light btn-large">Explore</button>
-            </a>
+            </Link>
         </div>
-        <div id="explore" className="container">
-            <HomeExplore />
-        </div>
-        <About/>
     </div>
 );
 

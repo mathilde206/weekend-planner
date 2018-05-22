@@ -7,6 +7,8 @@ from rest_framework.serializers import (
     ValidationError,
 )
 
+from accounts.serializers import UserDetailSerializer
+
 from .models import Comment
 
 User = get_user_model()
@@ -91,6 +93,8 @@ class CommentSerializer(ModelSerializer):
 
 
 class CommentChildSerializer(ModelSerializer):
+    user = UserDetailSerializer(read_only=True)
+
     class Meta:
         model = Comment
         fields = [
@@ -103,6 +107,7 @@ class CommentChildSerializer(ModelSerializer):
 
 class CommentDetailSerializer(ModelSerializer):
     replies = SerializerMethodField()
+    user = UserDetailSerializer(read_only=True)
 
     @staticmethod
     def get_replies(obj):

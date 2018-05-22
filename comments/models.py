@@ -17,7 +17,6 @@ class CommentManager(models.Manager):
         Here we return the query string for a particular instance (will be determined in the view)
         """
         content_type = ContentType.objects.get_for_model(instance.__class__)
-        console.log(content_type)
         object_id = instance.id
         qs = super(CommentManager, self).filter(content_type=content_type, object_id=object_id).filter(parent=None)
         return qs

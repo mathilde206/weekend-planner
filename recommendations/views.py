@@ -14,7 +14,6 @@ from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
     IsAdminUser,
-    IsAuthenticatedOrReadOnly,
 )
 
 from .models import Recommendation
@@ -45,14 +44,14 @@ class RecommendationDeleteAPIView(DestroyAPIView):
     lookup_field = 'slug'
     queryset = Recommendation.objects.active()
     serializer_class = RecommendationDetailSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
 
 class RecommendationDetailAPIView(RetrieveAPIView):
     lookup_field = 'slug'
+    permission_classes = ['AllowAny']
     queryset = Recommendation.objects.all()
     serializer_class = RecommendationDetailSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class RecommendationsListAPIView(ListAPIView):
@@ -62,7 +61,7 @@ class RecommendationsListAPIView(ListAPIView):
     # TODO: allow to search only specific fields (ex: just city) or is it useless ?
     queryset = Recommendation.objects.active()
     serializer_class = RecommendationsListSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [AllowAny]
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['title', 'content_day1', 'content_day2', 'content_day3', 'user__first_name', 'user__last_name',
                      'user__username']
@@ -73,7 +72,7 @@ class RecommendationUpdateAPIView(RetrieveUpdateAPIView):
     lookup_field = 'slug'
     queryset = Recommendation.objects.active()
     serializer_class = RecommendationCreateUpdateSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
 # TODO: Add a Recommendation list for posts from a user and posts about a city (use filter on queryset instead of all)
 # TODO: Create a API to receive drafts from a user

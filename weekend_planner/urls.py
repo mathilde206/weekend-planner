@@ -21,7 +21,9 @@ from django.contrib import admin
 from cities import urls as cities_urls
 from recommendations import urls as recommendations_urls
 from comments import urls as comments_urls
+from accounts import urls as users_urls
 from frontend.views import FrontEndRenderView
+
 
 from .settings import DEBUG
 
@@ -30,6 +32,7 @@ urlpatterns = [
     url(r'api/cities/', include(cities_urls)),
     url(r'api/comments/', include(comments_urls, namespace='comments-api')),
     url(r'api/recommendations/', include(recommendations_urls, namespace='recommendations-api')),
+    url(r'api/users/', include(users_urls, namespace='users-api')),
 ]
 
 # A catch all url pattern that will render the React app
@@ -40,5 +43,3 @@ urlpatterns += [
 
 if DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-
